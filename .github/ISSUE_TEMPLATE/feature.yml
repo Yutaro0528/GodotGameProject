@@ -1,0 +1,51 @@
+name: 機能追加
+description: Claude に実装を依頼する機能の要望
+title: "[feat] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        本文に `@claude` を含めると Claude が実装して PR を作ります。
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: やりたいこと
+      description: どう振る舞ってほしいかを、実装方法ではなく挙動で書いてください。
+      placeholder: 敵に接触したらプレイヤーの HP が減り、0 になったらゲームオーバー画面に遷移する
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 受け入れ条件
+      description: これが満たされたら完了、と言える条件を箇条書きで。
+      placeholder: |
+        - 敵との接触 1 回で HP が敵の attack ぶん減る
+        - HP が 0 になったら game_over.tscn に切り替わる
+        - 無敵時間が 0.5 秒ある
+    validations:
+      required: true
+
+  - type: textarea
+    id: assets
+    attributes:
+      label: 必要なアセット
+      description: |
+        画像・音声は Claude が作れません。必要なものと、
+        用意済みかどうかを書いてください。
+      placeholder: |
+        - art/ui/gameover.png（未作成・320x180）
+        - 用意済み: art/enemies/slime.png
+    validations:
+      required: false
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: 動作確認の観点
+      description: ローカルで遊んで何を確かめたいか。手触りの基準があれば書いてください。
+    validations:
+      required: false
