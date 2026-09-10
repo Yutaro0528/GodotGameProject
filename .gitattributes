@@ -1,0 +1,23 @@
+* text=auto eol=lf
+
+# Godot のテキスト資産は明示的にテキスト扱い
+*.tscn   text
+*.tres   text
+*.gd     text
+*.godot  text
+*.import text
+*.cfg    text
+
+# バイナリは LFS
+*.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.aseprite filter=lfs diff=lfs merge=lfs -text
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.ogg filter=lfs diff=lfs merge=lfs -text
+*.ttf filter=lfs diff=lfs merge=lfs -text
+
+# addons/ は第三者製アドオンの取り込み先。LFS 対象から外し、
+# 通常の Git 管理にする（LFS フィルタが addon の同梱アセットに
+# かかると、addon 取得のたびに LFS 帯域を消費してしまうため）
+addons/** -filter -diff -merge text=auto

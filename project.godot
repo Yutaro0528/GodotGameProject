@@ -1,0 +1,29 @@
+; Engine configuration file.
+; エディタ UI から編集するのが基本だが、テキストなので Claude が直接編集してもよい。
+; ただし autoload / input map の追記は競合しやすいため 1 PR = 1 機能を厳守すること。
+
+config_version=5
+
+[application]
+
+config/name="GodotGameProject"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
+
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=180
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/canvas_textures/default_texture_filter=0

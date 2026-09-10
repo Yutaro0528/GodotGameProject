@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_b7q2r"]
+[ext_resource type="Resource" path="res://resources/enemies/slime.tres" id="2_n5t8w"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_b7q2r")
+enemy_stats = ExtResource("2_n5t8w")
+
+[node name="StatusLabel" type="Label" parent="."]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 312.0
+offset_bottom = 32.0
+text = "loading..."

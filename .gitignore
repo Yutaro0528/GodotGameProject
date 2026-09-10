@@ -1,0 +1,23 @@
+# Godot 4 のインポートキャッシュ（Unity の Library/ 相当）
+# 絶対にコミットしないこと。ただし CI では --import のウォームアップが必須。
+/.godot/
+
+# tools/ci/install_godot.sh が Godot バイナリを展開する先
+/.tools/
+
+# gdUnit4 が出力するテストレポート
+/reports/
+
+# エクスポート成果物
+# 先頭の / でリポジトリ直下に限定している。限定しないと addons/ 配下の
+# 同名ディレクトリやファイル（gdUnit4 の bin/ など）まで巻き込んでしまう。
+/build/
+/export/
+/*.exe
+/*.pck
+/*.zip
+
+# エディタ
+.vscode/
+.idea/
+.DS_Store

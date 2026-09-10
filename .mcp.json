@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "godot-docs": {
+      "command": "npx",
+      "args": ["-y", "@nuskey8/godot-docs-mcp@latest"]
+    }
+  }
+}
