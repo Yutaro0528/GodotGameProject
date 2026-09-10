@@ -34,7 +34,23 @@ jobs:
         with:
           node-version: 20
 
+      # ANTHROPIC_API_KEY が未設定のリポジトリで PR を赤くしないためのガード。
+      # secrets コンテキストはジョブレベルの if で参照できないため、
+      # env 経由でステップレベルに落として判定する。
+      - name: Check ANTHROPIC_API_KEY
+        id: secret
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -z "${ANTHROPIC_API_KEY}" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::ANTHROPIC_API_KEY が未設定のためスキップしました。リポジトリの Settings → Secrets and variables → Actions で設定してください（README の「Claude まわりのセットアップ」を参照）。"
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: anthropics/claude-code-action@v1
+        if: steps.secret.outputs.configured == 'true'
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: |

@@ -5,6 +5,10 @@ on:
     branches: [main]
   workflow_dispatch: {}
 
+# 既定は読み取りのみ。必要なジョブだけがジョブ単位で広げる。
+permissions:
+  contents: read
+
 env:
   GODOT_VERSION: "4.7.2"
   # Godot は終了時に RID/ObjectDB のリーク警告で非ゼロ終了することがあり、
@@ -52,6 +56,14 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # gdUnit4-action は内部で dorny/test-reporter を使い、JUnit XML を
+    # チェックランとして公開する。checks: write が無いと
+    # "Resource not accessible by integration" でジョブが赤くなる
+    # （テスト自体は通っていても）。
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
         with:

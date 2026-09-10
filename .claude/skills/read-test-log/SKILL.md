@@ -42,7 +42,18 @@ description: godot-tests ワークフローや gdUnit4 の出力を読んで失�
 
 ## 「テストは通っているのに CI が赤い」場合
 
-Godot は終了時に RID/ObjectDB のリーク警告で非ゼロ終了することがある。
+まず gdUnit4 の出力に `Exit code: 0` と
+`The tests was successfully with exit code: 0` があるか確認する。
+**あれば失敗しているのはテストではなく、その後のレポート公開処理。**
+
+- `##[error]HttpError: Resource not accessible by integration`
+  → gdUnit4-action が内部で使う `dorny/test-reporter` が
+    チェックランを作れていない。ジョブに `checks: write` 権限が要る。
+    `godot-tests.yml` の `test` ジョブの `permissions` を確認すること
+    （フォークからの PR では権限が付与されないため、その場合は
+    Action の `publish-report: false` を検討する）
+
+次に、Godot 終了時の RID/ObjectDB リーク警告による非ゼロ終了を疑う。
 ワークフローには `GODOT_DISABLE_LEAK_CHECKS: "1"` を設定済み。
 それでも起きる場合は、テストが `Node` を生成して解放していないことを疑う。
 
